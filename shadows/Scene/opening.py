@@ -1,6 +1,5 @@
 import asyncio
 import pygame
-import random
 
 class Open:
     SCREEN_WIDTH = 640
