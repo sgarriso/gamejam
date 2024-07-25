@@ -18,25 +18,20 @@ class Open:
         self.font = pygame.font.Font('freesansbold.ttf', 32)
         self.text = self.font.render('Press A for Alchemy ', True, Open.blue, Open.black)
         self.textRect = self.text.get_rect()
-        
         # set the center of the rectangular object.
         self.textRect.center = (Open.SCREEN_WIDTH // 2, Open.SCREEN_HEIGHT // 2)
-    async def start(self):
+        self.screen.fill(Open.black)
+        self.screen.blit(self.text, self.textRect)
+        self.event_type = pygame.KEYDOWN
+        self.event_key = pygame.K_a
         self.running = True
-        while self.running:
-            self.screen.fill(Open.black)
-            self.screen.blit(self.text, self.textRect)
-            for event in pygame.event.get():
- 
-                # if event object type is QUIT
-                # then quitting the pygame
-                # and program both.
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        return
-        
-            # Draws the surface object to the screen.
-            pygame.display.update()
-            await asyncio.sleep(0)
+    def check(self, events):
+        self.running = True
+        for event in events:
+            if event.type == pygame.KEYDOWN and  event.key == pygame.K_a:
+                self.running = False
+                return False
+        return True
+
             
         

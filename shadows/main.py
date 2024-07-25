@@ -1,8 +1,10 @@
 import pygame
-import random
 import asyncio
 from  mini_games.ball import  Ball
 from Scene.opening import Open
+from Scene.main_game import Main
+from collections import deque 
+
 
 # Initialize pygame
 pygame.init()
@@ -11,22 +13,32 @@ pygame.init()
 
 
 
-
+def check(object, events):
+    return object.check(events)
+    
 
 clock = pygame.time.Clock()
 
 async def main():
-    running = True
+    queue = deque([Main, Open])
+    object = queue.pop()()
+
+ 
 
 
-    while running:
-        open = Open()
-        await open.start()
+    while queue or object.running:
+        await asyncio.sleep(0)
+        if not object.running:
+            object = queue.pop()()
         
-        print("getting ball")
-        b = Ball()
-        print("running ball")
-        running =  await b.start_game()
+        events = pygame.event.get()
+        
+        if check(object, events):
+            object.display.update()
+
+        
+
+
         
 
 # This is the program entry point
