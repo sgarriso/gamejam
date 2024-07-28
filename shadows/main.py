@@ -6,13 +6,18 @@ from  mini_games.ball import  Ball
 from Scene.opening import Open
 from Scene.main_game import Main
 from collections import deque 
+from helper.utils import save_object, restore_object
 
 
 # Initialize pygame
 pygame.init()
+result =  restore_object("support")
+result  =  result if result else save_object("support", .20)
+support = result if result else .20
 
 
 mapping = {"ball":Ball, "main":Main}
+args = {Ball:{"support": support }}
 
 
 def check(object, events):
@@ -44,7 +49,10 @@ async def main():
     while queue or object.running:
         await asyncio.sleep(0)
         if not object.running:
-            object = queue.pop()()
+            object = queue.pop()
+            pass_args = args.get(object, {})
+            object =  object(display,**pass_args)if args else object(display)
+            display = object.display
         
         events = pygame.event.get()
         

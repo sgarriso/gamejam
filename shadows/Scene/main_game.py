@@ -39,7 +39,6 @@ class Main:
                 if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                     if event.ui_element == self.text_input:
                         entered_text = event.text
-                        self.text_input.text = entered_text
             self.manager.process_events(event)
         self.manager.update(time_delta)
         self.manager.draw_ui(self.screen)
