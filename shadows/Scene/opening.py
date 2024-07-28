@@ -23,7 +23,7 @@ class Open:
         for event in events:
             if event.type == pygame.KEYDOWN and  event.key == pygame.K_a:
                 self.running = False
-                return False
+                return {"alchemy": 100}
         return True
 
             

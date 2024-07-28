@@ -5,8 +5,12 @@ import i18n
 from  mini_games.ball import  Ball
 from Scene.opening import Open
 from Scene.main_game import Main
+from menus.points import Points
 from collections import deque 
 from helper.utils import save_object, restore_object
+
+# pygbag --archive gamejam\shadows
+
 
 
 # Initialize pygame
@@ -14,6 +18,7 @@ pygame.init()
 result =  restore_object("support")
 result  =  result if result else save_object("support", .20)
 support = result if result else .20
+points = Points()
 
 
 mapping = {"ball":Ball, "main":Main}
@@ -24,11 +29,15 @@ def check(object, events):
     return object.check(events)
 def process(results, queue:deque,object):
     if results:
+        points.check(object.screen)
         object.display.update()
+       
     if isinstance(results, list):
         for item in results:
             if item in mapping.keys():
                 queue.append(mapping[item])
+    if isinstance(results, dict):
+        points.update(results)
         
         
         
