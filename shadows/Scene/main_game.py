@@ -2,7 +2,7 @@
 import pygame
 import pygame_gui
 from pygame_gui.elements.ui_text_entry_line import UITextEntryLine
-from helper.constants import SCREEN_HEIGHT, SCREEN_WIDTH, green, black
+from helper.constants import SCREEN_HEIGHT, SCREEN_WIDTH, black
 
 
 
@@ -17,8 +17,8 @@ class Main:
         # it will display on screen 
         self.screen = display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT]) 
         self.manager =  pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.hello = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (100, 50)),
-                                             text='Ball',
+        self.games = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 275), (200, 50)),
+                                             text='Shadow Games',
                                              manager=self.manager)
 
         self.text_input =  UITextEntryLine(relative_rect=pygame.Rect(0, 0, 100, 100), manager=self.manager)
@@ -30,9 +30,9 @@ class Main:
         self.running = True
         for event in  events:
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
-              if event.ui_element == self.hello:
+              if event.ui_element == self.games:
                   self.running = False
-                  return ["main", "ball"]
+                  return ["main", "game"]
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_TEXT_ENTRY_FINISHED:
                     if event.ui_element == self.text_input:

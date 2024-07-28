@@ -5,6 +5,7 @@ import i18n
 from  mini_games.ball import  Ball
 from Scene.opening import Open
 from Scene.main_game import Main
+from Scene.game_selection import GameSelect
 from menus.points import Points
 from collections import deque 
 from helper.utils import save_object, restore_object
@@ -21,7 +22,7 @@ support = result if result else .20
 points = Points()
 
 
-mapping = {"ball":Ball, "main":Main}
+mapping = {"ball":Ball, "main":Main, "game":GameSelect}
 args = {Ball:{"support": support }}
 
 
@@ -48,7 +49,8 @@ clock = pygame.time.Clock()
 
 async def main():
     display = pygame.display
-    queue = deque([Main, Open])
+    GameSelect
+    queue = deque([GameSelect]) # deque([Main, Open])
     object = queue.pop()(display)
     display = object.display 
 

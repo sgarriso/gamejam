@@ -9,8 +9,8 @@ class Points:
         self.manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.alchemy_points = 0
         self.shadow_points = 0
-        self.alchemy_text =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0, SCREEN_HEIGHT-200, 200, 200), text=f"alchemy points:{self.alchemy_points}", manager=self.manager, visible=OFF)
-        self.shadow_text  =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(SCREEN_WIDTH-200, SCREEN_HEIGHT-200, 200,  200), text=f"shadow points:{self.shadow_points}", manager=self.manager, visible=OFF)
+        self.alchemy_text =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0, SCREEN_HEIGHT-150, 200, 200), text=f"alchemy points:{self.alchemy_points}", manager=self.manager, visible=ON)
+        self.shadow_text  =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(SCREEN_WIDTH-200, SCREEN_HEIGHT-150, 200,  200), text=f"shadow points:{self.shadow_points}", manager=self.manager, visible=ON)
     def set_alchemy_text(self,points):
         self.alchemy_points = points
         self.alchemy_text.set_text(f"alchemy points:{self.alchemy_points}")
