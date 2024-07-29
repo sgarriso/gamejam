@@ -2,9 +2,11 @@ import pygame
 import asyncio
 import pygame_gui
 import i18n
+import json
 from  mini_games.ball import  Ball
 from Scene.opening import Open
 from Scene.main_game import Main
+from Scene.Store import Store
 from Scene.game_selection import GameSelect
 from menus.points import Points
 from collections import deque 
@@ -23,7 +25,7 @@ points = Points()
 
 
 mapping = {"ball":Ball, "main":Main, "game":GameSelect}
-args = {Ball:{"support": support }}
+args = {Ball:{"support": support }, GameSelect: {}}
 
 
 def check(object, events):
@@ -49,8 +51,7 @@ clock = pygame.time.Clock()
 
 async def main():
     display = pygame.display
-    GameSelect
-    queue = deque([GameSelect]) # deque([Main, Open])
+    queue = deque([Store]) # deque([Main, Open])
     object = queue.pop()(display)
     display = object.display 
 
