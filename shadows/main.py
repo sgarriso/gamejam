@@ -24,7 +24,7 @@ support = result if result else .20
 points = Points()
 
 
-mapping = {"ball":Ball, "main":Main, "game":GameSelect}
+mapping = {"ball":Ball, "main":Main, "game":GameSelect, "store": Store}
 args = {Ball:{"support": support }, GameSelect: {}}
 
 
@@ -41,6 +41,7 @@ def process(results, queue:deque,object):
                 queue.append(mapping[item])
     if isinstance(results, dict):
         points.update(results)
+        GameSelect.save_settings(results)
         
         
         
@@ -51,7 +52,7 @@ clock = pygame.time.Clock()
 
 async def main():
     display = pygame.display
-    queue = deque([Store]) # deque([Main, Open])
+    queue =  deque([Main, Open])
     object = queue.pop()(display)
     display = object.display 
 

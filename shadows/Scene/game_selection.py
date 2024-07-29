@@ -5,7 +5,7 @@ from helper.utils import save_object, restore_object
 from helper.constants import SCREEN_HEIGHT, SCREEN_WIDTH, black, OFF
 class GameSelect:
     GAMES = {
-        "ball": 10,
+        "ball": 0,
         "treasure": 1000 ,
         "hi":100 ,
         "wake": 50, 
@@ -13,6 +13,14 @@ class GameSelect:
         "slots":5000,
         
     }
+    GAMES_LIST = ["ball", "treasure", "hi", "wake", "tree", "slots", "pet" ]
+    def save_settings(results):
+        game_menu_settings = restore_object("game_menu_settings")
+        for key in results:
+            if key in GameSelect.GAMES_LIST:
+                game_menu_settings[key] = results[key]
+        save_object("game_menu_settings", game_menu_settings)
+                
     def __init__(self, display:pygame.display=pygame.display):
         self.clock = pygame.time.Clock() 
         self.display = display
@@ -66,7 +74,7 @@ class GameSelect:
                         "ball": self.ball
                         }
     def get_settings(self):
-        self.game_menu_settings =  restore_object("settings")
+        self.game_menu_settings =  restore_object("game_menu_settings")
         result  =  self.game_menu_settings if self.game_menu_settings else save_object("game_menu_settings", {})
         self.game_menu_settings = result if result else {}
     def unlock(self, settings):
@@ -83,6 +91,9 @@ class GameSelect:
                 if event.ui_element == self.main:
                   self.running = False
                   return ["main"]
+                if event.ui_element == self.store:
+                    self.running = False
+                    return ["store"]
             self.manager.process_events(event)
         self.manager.update(time_delta)
         self.manager.draw_ui(self.screen)
