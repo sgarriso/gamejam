@@ -15,8 +15,10 @@ class Points:
         self.clock = pygame.time.Clock() 
         self.manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.get_points_saved()
-        self.alchemy_text =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0, SCREEN_HEIGHT-150, 250, 200), text=f"alchemy points (AP):{self.alchemy_points}", manager=self.manager, visible=OFF)
-        self.shadow_text  =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(SCREEN_WIDTH-300, SCREEN_HEIGHT-150, 250,  200), text=f"shadow points (SP):{self.shadow_points}", manager=self.manager, visible=OFF)
+        alc_toggle = ON if self.alchemy_points else OFF
+        shadow_toggle = ON if self.shadow_points else OFF
+        self.alchemy_text =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(0, SCREEN_HEIGHT-150, 250, 200), text=f"alchemy points (AP):{self.alchemy_points}", manager=self.manager, visible=alc_toggle)
+        self.shadow_text  =   pygame_gui.elements.UILabel(relative_rect=pygame.Rect(SCREEN_WIDTH-300, SCREEN_HEIGHT-150, 250,  200), text=f"shadow points (SP):{self.shadow_points}", manager=self.manager, visible=shadow_toggle)
     def set_alchemy_text(self,points):
         self.alchemy_points = points
         self.alchemy_text.set_text(f"alchemy points (AP):{self.alchemy_points}")

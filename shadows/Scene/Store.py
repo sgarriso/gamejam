@@ -5,6 +5,7 @@ from menus.points import Points
 from helper.utils import save_object, restore_object
 from helper.constants import SCREEN_HEIGHT, SCREEN_WIDTH, black, OFF, ON
 from Scene.game_selection import GameSelect
+from Scene.main_game import Main
 class Store:
     welcome_text = 'Hello! Buy Shadow Games; Play Shadow Games to get more Alchemy points'
     pet_text = "Here have this Pet!"
@@ -43,8 +44,12 @@ class Store:
             if not self.game_menu_settings.get(game):
                 self.text.append(f"{game}: {value} SP")
                 self.game_text[f"{game}: {value} SP"] = game
+        if len(Main.get_word_count_discover()) >=4 and Main.get_combo() != 1:
+            self.text.append(f"combo: 100 SP")
+            self.game_text[f"combo: 100 SP"] = "combo"
         if not self.text:
             self.text.append("the Store is empty")
+            
             
     def check(self, events):
         results = True
@@ -57,7 +62,13 @@ class Store:
                     self.running = False
                     return ["game"]
             if event.type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
-                if GameSelect.GAMES.get(self.game_text.get(event.text, None), 99999 )  <= shadow_points:
+                if self.game_text.get(event.text, None) == "combo" and 100 <= shadow_points:
+                    results = {}
+                    self.store_list.remove_options(event.text)
+                    results['shadow'] = -1 * 100
+                    save_object("combo", 1)
+                    
+                elif GameSelect.GAMES.get(self.game_text.get(event.text, None), 99999 )  <= shadow_points:
                     self.store_list.remove_options(event.text)
                     results = {}
                     results['shadow'] = -1 * GameSelect.GAMES.get(self.game_text.get(event.text, None), 999999 )
